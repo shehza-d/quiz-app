@@ -1,24 +1,26 @@
 import { IQuestion } from "../types";
-import { shuffleArr } from "../lib";
+// import { shuffleArr } from "../lib";
 import ReactStars from "react-stars";
+import { useState, type Dispatch, type SetStateAction } from "react";
 
 interface IProps {
   question: IQuestion;
-  index: number;
+  choices: string[];
+  currentQuestion: number;
   totalQuestions: number;
+  setCurrentQuestion: Dispatch<SetStateAction<number>>;
 }
 
 export default function Quiz(props: IProps) {
-  let { question, index, totalQuestions } = props;
-  question = JSON.parse(decodeURIComponent(JSON.stringify(question)));
-  //   console.log("🚀 ~ file: Quiz.tsx:7 ~ Quiz ~ question:", props);
-  //   console.log("🚀 ~ file: Quiz.tsx:7 ~ Quiz ~ question:", question);
+  let {
+    question,
+    choices,
+    currentQuestion,
+    setCurrentQuestion,
+    totalQuestions,
+  } = props;
 
-  // shuffling correct and incorrect choices
-  const choices = shuffleArr([
-    ...question.incorrect_answers,
-    question.correct_answer,
-  ]);
+  const [correctAns, setCorrectAns] = useState<boolean | null>(null);
 
   const questionRating =
     question.difficulty === "easy"
@@ -29,10 +31,15 @@ export default function Quiz(props: IProps) {
       ? 3
       : 0;
 
+  const checkAns = (event: any) => {
+    if (event.target.innerText === question.correct_answer) setCorrectAns(true);
+    else setCorrectAns(false);
+  };
+
   return (
     <div>
       <h2>
-        Question {index} out of {totalQuestions}
+        Question {currentQuestion} out of {totalQuestions}
       </h2>
       <h4>{question.category}</h4>
 
@@ -49,11 +56,28 @@ export default function Quiz(props: IProps) {
 
       <div>
         {choices.map((item, i) => (
-          <button className="p-2 border border-slate-500" key={i}>
+          <button
+            onClick={checkAns}
+            className="p-2 border border-slate-500"
+            key={i}
+          >
             {item}
           </button>
         ))}
       </div>
+
+      {!(correctAns === null) && (
+        <div>{correctAns ? "Correct!" : "Incorrect!"}</div>
+      )}
+
+      <button
+        onClick={() => {
+          setCurrentQuestion(currentQuestion + 1);
+          setCorrectAns(null);
+        }}
+      >
+        Next Question
+      </button>
     </div>
   );
 }
