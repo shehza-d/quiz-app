@@ -1,5 +1,5 @@
-import { shuffleArr } from "../lib";
 import { IQuestion } from "../types";
+import { shuffleArr } from "../lib";
 import ReactStars from "react-stars";
 
 interface IProps {
@@ -7,6 +7,7 @@ interface IProps {
   index: number;
   totalQuestions: number;
 }
+
 export default function Quiz(props: IProps) {
   let { question, index, totalQuestions } = props;
   question = JSON.parse(decodeURIComponent(JSON.stringify(question)));
@@ -18,7 +19,6 @@ export default function Quiz(props: IProps) {
     ...question.incorrect_answers,
     question.correct_answer,
   ]);
-  console.log("🚀 ~ file: Quiz.tsx:21 ~ Quiz ~ choices:", choices);
 
   const questionRating =
     question.difficulty === "easy"
@@ -49,7 +49,9 @@ export default function Quiz(props: IProps) {
 
       <div>
         {choices.map((item, i) => (
-          <button className="p-10" key={i}>{item}</button>
+          <button className="p-2 border border-slate-500" key={i}>
+            {item}
+          </button>
         ))}
       </div>
     </div>

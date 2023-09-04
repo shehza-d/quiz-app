@@ -1,7 +1,7 @@
-import { IQuestion } from "./types";
 import { useState } from "react";
 import data from "./data/questions.json";
 import Quiz from "./pages/Quiz";
+import { IQuestion } from "./types";
 
 export default function App() {
   const [index, setIndex] = useState(0);
