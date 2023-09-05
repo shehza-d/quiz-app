@@ -39,7 +39,7 @@ export default function Quiz(props: IProps) {
 
   return (
     <div className="">
-      <h2 className="text-zinc-600 text-4xl">
+      <h2 className="text-4xl text-zinc-600">
         Question {currentQuestion + 1} of {totalQuestions}
       </h2>
       <h4 className="pt-2 text-zinc-500">{question.category}</h4>
@@ -53,13 +53,13 @@ export default function Quiz(props: IProps) {
         color2={"black"}
       />
 
-      <p className="text-lg font-medium py-6">{question.question}</p>
+      <p className="py-6 text-lg font-medium">{question.question}</p>
 
-      <div>
+      <div className="grid grid-cols-2 gap-8 px-12">
         {choices.map((item, i) => (
           <button
             onClick={checkAns}
-            className="p-2 border border-slate-500"
+            className="rounded-md border border-slate-500"
             key={i}
           >
             {item}
