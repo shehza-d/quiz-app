@@ -18,10 +18,15 @@ export default function ScoreBar(props: IProps) {
     totalIncorrectAns += !item.answeredCorrectly ? 1 : 0;
   });
 
-  const totalCorrectPer = (totalCorrectAns / totalAttemptedQues) * 100;
-  const minPercentage = (totalIncorrectAns / totalQuestions) * 100;
-  const maxPercentage =
-    ((totalQuestions - totalIncorrectAns) / totalQuestions) * 100;
+  const minPercentage = Math.round((totalIncorrectAns / totalQuestions) * 100);
+
+  const totalCorrectPer = Math.round(
+    (totalCorrectAns / totalAttemptedQues) * 100,
+  );
+
+  const maxPercentage = Math.round(
+    ((totalQuestions - totalIncorrectAns) / totalQuestions) * 100,
+  );
 
   return (
     <div className="relative h-9 w-full rounded-md border-2 border-zinc-600">
