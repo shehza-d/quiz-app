@@ -6,3 +6,8 @@ export interface IQuestion {
   correct_answer: string;
   incorrect_answers: string[];
 }
+
+export interface IScore {
+  questionNo: number;
+  answeredCorrectly: boolean;
+}

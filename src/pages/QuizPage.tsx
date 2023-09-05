@@ -1,16 +1,19 @@
 import { useState } from "react";
 import data from "../data/questions.json";
 import Quiz from "../components/Quiz";
-import { IQuestion } from "../types";
-import { shuffleArr } from "../lib";
 import ProgressBar from "../components/ProgressBar";
 import ScoreBar from "../components/ScoreBar";
+import { shuffleArr } from "../lib";
+import { IQuestion, IScore } from "../types";
 
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState<IScore[]>([]);
 
   const totalQuestions = data.length;
   const percentage = ((currentQuestion + 1) / totalQuestions) * 100;
+
+  // const score: IScore[] = [];
 
   const question = {
     category: decodeURIComponent(data[currentQuestion].category),
@@ -42,8 +45,9 @@ export default function QuizPage() {
           totalQuestions={totalQuestions}
           correctAnswer={question.correct_answer}
           incorrectAnswers={question.incorrect_answers}
+          setScore={setScore}
         />
-        <ScoreBar />
+        <ScoreBar score={score} totalQuestions={totalQuestions} />
       </div>
     </>
   );

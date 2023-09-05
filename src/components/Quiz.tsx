@@ -1,6 +1,7 @@
-import { IQuestion } from "../types";
+import type { IQuestion, IScore } from "../types";
 import ReactStars from "react-stars";
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
+import type { Dispatch, SetStateAction, MouseEvent } from "react";
 
 interface IProps {
   question: IQuestion;
@@ -10,6 +11,7 @@ interface IProps {
   totalQuestions: number;
   correctAnswer: string;
   incorrectAnswers: string[];
+  setScore: Dispatch<SetStateAction<IScore[]>>;
 }
 
 export default function Quiz(props: IProps) {
@@ -21,13 +23,10 @@ export default function Quiz(props: IProps) {
     totalQuestions,
     correctAnswer,
     incorrectAnswers,
+    setScore,
   } = props; // destructuring of props
 
   const [userSelectedAns, setUserSelectedAns] = useState<string>("");
-  console.log(
-    "🚀 ~ file: Quiz.tsx:27 ~ Quiz ~ userSelectedAns:",
-    userSelectedAns,
-  );
 
   const questionRating =
     question.difficulty === "easy"
@@ -38,7 +37,7 @@ export default function Quiz(props: IProps) {
       ? 3
       : 0;
 
-  const checkAns = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
     if (userSelectedAns) return; // most important line
     setUserSelectedAns(event.currentTarget.innerText);
     // event.currentTarget.style.opacity = "1";
@@ -64,11 +63,11 @@ export default function Quiz(props: IProps) {
         {question.question}
       </p>
 
-      <div className="grid grid-cols-2 gap-8 px-12">
+      <div className="grid grid-cols-2 gap-8">
         {choices.map((item, i) => (
           <button
             onClick={checkAns}
-            className={`rounded-md border-2 border-slate-700 bg-zinc-200 font-medium ${
+            className={`rounded-md border-2 border-slate-700 font-medium ${
               userSelectedAns
                 ? item === correctAnswer
                   ? "bg-black text-white"
@@ -91,6 +90,13 @@ export default function Quiz(props: IProps) {
             <button
               className="rounded-md border-2 border-slate-700 px-6 py-1"
               onClick={() => {
+                setScore((prev) => [
+                  ...prev,
+                  {
+                    questionNo: currentQuestion + 1,
+                    answeredCorrectly: userSelectedAns === correctAnswer,
+                  },
+                ]);
                 setCurrentQuestion(currentQuestion + 1);
                 setUserSelectedAns("");
               }}
