@@ -1,5 +1,4 @@
 import { IQuestion } from "../types";
-// import { shuffleArr } from "../lib";
 import ReactStars from "react-stars";
 import { useState, type Dispatch, type SetStateAction } from "react";
 
@@ -59,7 +58,7 @@ export default function Quiz(props: IProps) {
         {choices.map((item, i) => (
           <button
             onClick={checkAns}
-            className="rounded-md border border-slate-500"
+            className="rounded-md border-2 border-slate-700 bg-zinc-200 font-medium"
             key={i}
           >
             {item}
@@ -68,18 +67,22 @@ export default function Quiz(props: IProps) {
       </div>
 
       {correctAns !== null && (
-        <>
-          <div>{correctAns ? "Correct!" : "Incorrect!"}</div>
-          <button
-            onClick={() => {
-              if (correctAns === null) return;
-              setCurrentQuestion(currentQuestion + 1);
-              setCorrectAns(null);
-            }}
-          >
-            Next Question
-          </button>
-        </>
+        <div className="mt-10 flex w-full flex-col items-center gap-6">
+          <div className="text-4xl font-medium text-zinc-800">
+            {correctAns ? "Correct!" : "Sorry!"}
+          </div>
+          {currentQuestion + 1 !== totalQuestions && (
+            <button
+              className="rounded-md border-2 border-slate-700 px-6 py-1"
+              onClick={() => {
+                setCurrentQuestion(currentQuestion + 1);
+                setCorrectAns(null);
+              }}
+            >
+              Next Question
+            </button>
+          )}
+        </div>
       )}
     </div>
   );
