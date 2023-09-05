@@ -6,8 +6,10 @@ interface IProps {
   question: IQuestion;
   choices: string[];
   currentQuestion: number;
-  totalQuestions: number;
   setCurrentQuestion: Dispatch<SetStateAction<number>>;
+  totalQuestions: number;
+  correctAnswer: string;
+  incorrectAnswers: string[];
 }
 
 export default function Quiz(props: IProps) {
@@ -17,9 +19,15 @@ export default function Quiz(props: IProps) {
     currentQuestion,
     setCurrentQuestion,
     totalQuestions,
+    correctAnswer,
+    incorrectAnswers,
   } = props; // destructuring of props
 
-  const [correctAns, setCorrectAns] = useState<boolean | null>(null);
+  const [userSelectedAns, setUserSelectedAns] = useState<string>("");
+  console.log(
+    "🚀 ~ file: Quiz.tsx:27 ~ Quiz ~ userSelectedAns:",
+    userSelectedAns,
+  );
 
   const questionRating =
     question.difficulty === "easy"
@@ -30,10 +38,10 @@ export default function Quiz(props: IProps) {
       ? 3
       : 0;
 
-  const checkAns = (event: any) => {
-    if (correctAns !== null) return; // most important line
-    if (event.target.innerText === question.correct_answer) setCorrectAns(true);
-    else setCorrectAns(false);
+  const checkAns = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (userSelectedAns) return; // most important line
+    setUserSelectedAns(event.currentTarget.innerText);
+    // event.currentTarget.style.opacity = "1";
   };
 
   return (
@@ -52,13 +60,21 @@ export default function Quiz(props: IProps) {
         color2={"black"}
       />
 
-      <p className="py-6 text-lg font-medium">{question.question}</p>
+      <p className="flex min-h-[6rem] items-center text-lg font-medium">
+        {question.question}
+      </p>
 
       <div className="grid grid-cols-2 gap-8 px-12">
         {choices.map((item, i) => (
           <button
             onClick={checkAns}
-            className="rounded-md border-2 border-slate-700 bg-zinc-200 font-medium"
+            className={`rounded-md border-2 border-slate-700 bg-zinc-200 font-medium ${
+              userSelectedAns
+                ? item === correctAnswer
+                  ? "bg-black text-white"
+                  : "opacity-50"
+                : ""
+            }`}
             key={i}
           >
             {item}
@@ -66,17 +82,17 @@ export default function Quiz(props: IProps) {
         ))}
       </div>
 
-      {correctAns !== null && (
+      {userSelectedAns && (
         <div className="mt-10 flex w-full flex-col items-center gap-6">
           <div className="text-4xl font-medium text-zinc-800">
-            {correctAns ? "Correct!" : "Sorry!"}
+            {userSelectedAns === correctAnswer ? "Correct!" : "Sorry!"}
           </div>
           {currentQuestion + 1 !== totalQuestions && (
             <button
               className="rounded-md border-2 border-slate-700 px-6 py-1"
               onClick={() => {
                 setCurrentQuestion(currentQuestion + 1);
-                setCorrectAns(null);
+                setUserSelectedAns("");
               }}
             >
               Next Question

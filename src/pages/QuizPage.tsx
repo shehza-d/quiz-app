@@ -40,6 +40,8 @@ export default function QuizPage() {
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
           totalQuestions={totalQuestions}
+          correctAnswer={question.correct_answer}
+          incorrectAnswers={question.incorrect_answers}
         />
         <ScoreBar />
       </div>
