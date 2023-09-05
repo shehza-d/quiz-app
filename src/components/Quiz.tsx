@@ -12,13 +12,13 @@ interface IProps {
 }
 
 export default function Quiz(props: IProps) {
-  let {
+  const {
     question,
     choices,
     currentQuestion,
     setCurrentQuestion,
     totalQuestions,
-  } = props;
+  } = props; // destructuring of props
 
   const [correctAns, setCorrectAns] = useState<boolean | null>(null);
 
@@ -32,16 +32,17 @@ export default function Quiz(props: IProps) {
       : 0;
 
   const checkAns = (event: any) => {
+    if (correctAns !== null) return; // most important line
     if (event.target.innerText === question.correct_answer) setCorrectAns(true);
     else setCorrectAns(false);
   };
 
   return (
-    <div>
-      <h2>
-        Question {currentQuestion} out of {totalQuestions}
+    <div className="">
+      <h2 className="text-zinc-600 text-4xl">
+        Question {currentQuestion + 1} of {totalQuestions}
       </h2>
-      <h4>{question.category}</h4>
+      <h4 className="pt-2 text-zinc-500">{question.category}</h4>
 
       <ReactStars
         count={5}
@@ -52,7 +53,7 @@ export default function Quiz(props: IProps) {
         color2={"black"}
       />
 
-      <p>{question.question}</p>
+      <p className="text-lg font-medium py-6">{question.question}</p>
 
       <div>
         {choices.map((item, i) => (
@@ -66,18 +67,20 @@ export default function Quiz(props: IProps) {
         ))}
       </div>
 
-      {!(correctAns === null) && (
-        <div>{correctAns ? "Correct!" : "Incorrect!"}</div>
+      {correctAns !== null && (
+        <>
+          <div>{correctAns ? "Correct!" : "Incorrect!"}</div>
+          <button
+            onClick={() => {
+              if (correctAns === null) return;
+              setCurrentQuestion(currentQuestion + 1);
+              setCorrectAns(null);
+            }}
+          >
+            Next Question
+          </button>
+        </>
       )}
-
-      <button
-        onClick={() => {
-          setCurrentQuestion(currentQuestion + 1);
-          setCorrectAns(null);
-        }}
-      >
-        Next Question
-      </button>
     </div>
   );
 }
