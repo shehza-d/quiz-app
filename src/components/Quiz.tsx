@@ -10,7 +10,6 @@ interface IProps {
   setCurrentQuestion: Dispatch<SetStateAction<number>>;
   totalQuestions: number;
   correctAnswer: string;
-  incorrectAnswers: string[];
   setScore: Dispatch<SetStateAction<IScore[]>>;
 }
 
@@ -22,7 +21,6 @@ export default function Quiz(props: IProps) {
     setCurrentQuestion,
     totalQuestions,
     correctAnswer,
-    incorrectAnswers,
     setScore,
   } = props; // destructuring of props
 
@@ -40,12 +38,11 @@ export default function Quiz(props: IProps) {
   const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
     if (userSelectedAns) return; // most important line
     setUserSelectedAns(event.currentTarget.innerText);
-    // event.currentTarget.style.opacity = "1";
   };
 
   return (
     <div className="">
-      <h2 className="text-4xl text-zinc-600">
+      <h2 className="text-2xl text-zinc-600 md:text-4xl">
         Question {currentQuestion + 1} of {totalQuestions}
       </h2>
       <h4 className="pt-2 text-zinc-500">{question.category}</h4>
@@ -67,7 +64,7 @@ export default function Quiz(props: IProps) {
         {choices.map((item, i) => (
           <button
             onClick={checkAns}
-            className={`rounded-md border-2 border-slate-700 font-medium ${
+            className={`rounded-md border-2 border-slate-700 px-2 font-medium ${
               userSelectedAns
                 ? item === correctAnswer
                   ? "bg-black text-white"

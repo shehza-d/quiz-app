@@ -13,8 +13,6 @@ export default function QuizPage() {
   const totalQuestions = data.length;
   const percentage = ((currentQuestion + 1) / totalQuestions) * 100;
 
-  // const score: IScore[] = [];
-
   const question = {
     category: decodeURIComponent(data[currentQuestion].category),
     type: data[currentQuestion].type,
@@ -36,7 +34,7 @@ export default function QuizPage() {
   return (
     <>
       <ProgressBar percentage={percentage} />
-      <div className="mx-auto mt-10 flex h-[85vh] w-4/5 flex-col justify-between">
+      <div className="mx-auto mt-10 flex h-[85vh] w-4/5 max-w-4xl flex-col justify-between">
         <Quiz
           question={question}
           choices={choices}
@@ -44,7 +42,6 @@ export default function QuizPage() {
           setCurrentQuestion={setCurrentQuestion}
           totalQuestions={totalQuestions}
           correctAnswer={question.correct_answer}
-          incorrectAnswers={question.incorrect_answers}
           setScore={setScore}
         />
         <ScoreBar score={score} totalQuestions={totalQuestions} />
