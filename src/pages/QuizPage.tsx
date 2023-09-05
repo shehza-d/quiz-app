@@ -9,6 +9,9 @@ import ScoreBar from "../components/ScoreBar";
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
+  const totalQuestions = data.length;
+  const percentage = ((currentQuestion + 1) / totalQuestions) * 100;
+
   const question = {
     category: decodeURIComponent(data[currentQuestion].category),
     type: data[currentQuestion].type,
@@ -16,10 +19,10 @@ export default function QuizPage() {
     question: decodeURIComponent(data[currentQuestion].question),
     correct_answer: decodeURIComponent(data[currentQuestion].correct_answer),
     incorrect_answers: data[currentQuestion].incorrect_answers.map((i) =>
-      decodeURIComponent(i)
+      decodeURIComponent(i),
     ),
   } as IQuestion;
-  // JSON.parse(decodeURIComponent(JSON.stringify(question)));
+  // const question = JSON.parse(decodeURIComponent(JSON.stringify(question)));
 
   // shuffling correct and incorrect choices
   const choices = shuffleArr([
@@ -29,14 +32,14 @@ export default function QuizPage() {
 
   return (
     <>
-      <ProgressBar />
-      <div className="flex h-[85vh] justify-between mt-10 flex-col w-4/5 mx-auto">
+      <ProgressBar percentage={percentage} />
+      <div className="mx-auto mt-10 flex h-[85vh] w-4/5 flex-col justify-between">
         <Quiz
           question={question}
           choices={choices}
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
-          totalQuestions={data.length}
+          totalQuestions={totalQuestions}
         />
         <ScoreBar />
       </div>
