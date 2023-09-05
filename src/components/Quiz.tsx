@@ -1,7 +1,8 @@
 import type { IQuestion, IScore } from "../types";
 import ReactStars from "react-stars";
 import { useState } from "react";
-import type { Dispatch, SetStateAction, MouseEvent } from "react";
+import type { Dispatch, SetStateAction } from "react";
+import ChoicesBtn from "./ChoicesBtn";
 
 interface IProps {
   question: IQuestion;
@@ -35,9 +36,16 @@ export default function Quiz(props: IProps) {
       ? 3
       : 0;
 
-  const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
-    if (userSelectedAns) return; // most important line
-    setUserSelectedAns(event.currentTarget.innerText);
+  const handleNextQues = () => {
+    setScore((prev) => [
+      ...prev,
+      {
+        questionNo: currentQuestion + 1,
+        answeredCorrectly: userSelectedAns === correctAnswer,
+      },
+    ]);
+    setCurrentQuestion(currentQuestion + 1);
+    setUserSelectedAns("");
   };
 
   return (
@@ -60,21 +68,15 @@ export default function Quiz(props: IProps) {
         {question.question}
       </p>
 
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-2 items-center justify-items-center gap-8">
         {choices.map((item, i) => (
-          <button
-            onClick={checkAns}
-            className={`rounded-md border-2 border-slate-700 px-2 font-medium ${
-              userSelectedAns
-                ? item === correctAnswer
-                  ? "bg-black text-white"
-                  : "opacity-50"
-                : ""
-            }`}
+          <ChoicesBtn
             key={i}
-          >
-            {item}
-          </button>
+            item={item}
+            correctAnswer={correctAnswer}
+            userSelectedAns={userSelectedAns}
+            setUserSelectedAns={setUserSelectedAns}
+          />
         ))}
       </div>
 
@@ -86,17 +88,7 @@ export default function Quiz(props: IProps) {
           {currentQuestion + 1 !== totalQuestions && (
             <button
               className="rounded-md border-2 border-slate-700 px-6 py-1"
-              onClick={() => {
-                setScore((prev) => [
-                  ...prev,
-                  {
-                    questionNo: currentQuestion + 1,
-                    answeredCorrectly: userSelectedAns === correctAnswer,
-                  },
-                ]);
-                setCurrentQuestion(currentQuestion + 1);
-                setUserSelectedAns("");
-              }}
+              onClick={handleNextQues}
             >
               Next Question
             </button>
