@@ -1,9 +1,9 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "../context/index";
 
-interface IProps {
-  setStart: Dispatch<SetStateAction<boolean>>;
-}
-export default function Welcome({ setStart }: IProps) {
+export default function Welcome() {
+  const { dispatch } = useContext(GlobalContext);
+
   return (
     <div className="mx-auto mt-10 flex h-[80vh] w-4/5 flex-col items-center justify-center">
       <img
@@ -18,7 +18,7 @@ export default function Welcome({ setStart }: IProps) {
       </h1>
       <button
         className="rounded-md px-6 py-2 ring-2 ring-blue-400 duration-300 hover:bg-blue-300 hover:transition-transform"
-        onClick={() => setStart(true)}
+        onClick={() => dispatch({ type: "SHOW_PAGE", payload: true })}
       >
         Start Quiz
       </button>
