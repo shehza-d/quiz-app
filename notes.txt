@@ -1,0 +1,5 @@
+const {
+    state: { totalQuestions },
+  } = useContext(GlobalContext);
+
+  fix formatting

@@ -1,4 +1,4 @@
-import { IDifficulty } from "../types";
+import { IDifficulty, IScore } from "../types";
 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 export const shuffleArr = (array: string[]) => {
@@ -19,6 +19,18 @@ export const shuffleArr = (array: string[]) => {
   }
 
   return array;
+};
+
+export const evaluateScore = (score: IScore[]) => {
+  let totalCorrectAns = 0;
+  let totalIncorrectAns = 0;
+
+  score.forEach((item) => {
+    totalCorrectAns += item.answeredCorrectly ? 1 : 0;
+    totalIncorrectAns += !item.answeredCorrectly ? 1 : 0;
+  });
+
+  return { totalCorrectAns, totalIncorrectAns };
 };
 
 export const getRating = (rating: IDifficulty) =>

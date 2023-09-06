@@ -1,22 +1,22 @@
+import { useContext } from "react";
+import { GlobalContext } from "../context/index";
+import { evaluateScore } from "../lib";
 import { IScore } from "../types";
 
 interface IProps {
-  totalQuestions: number;
-  score: IScore[];
+  scores: IScore[];
 }
 
 // this is the bottom Score Progress Bar
 export default function ScoreBar(props: IProps) {
-  const { totalQuestions, score } = props; // destructuring of props
-  const totalAttemptedQues = score.length;
+  const {
+    state: { totalQuestions },
+  } = useContext(GlobalContext);
 
-  let totalCorrectAns = 0;
-  let totalIncorrectAns = 0;
+  const { scores } = props; // destructuring of props
+  const totalAttemptedQues = scores.length;
 
-  score.forEach((item) => {
-    totalCorrectAns += item.answeredCorrectly ? 1 : 0;
-    totalIncorrectAns += !item.answeredCorrectly ? 1 : 0;
-  });
+  const { totalCorrectAns, totalIncorrectAns } = evaluateScore(scores);
 
   const minPercentage = Math.round((totalIncorrectAns / totalQuestions) * 100);
 
