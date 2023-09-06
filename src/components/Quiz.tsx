@@ -12,9 +12,9 @@ interface IProps {
   choices: string[];
   currentQuestion: number;
   setCurrentQuestion: Dispatch<SetStateAction<number>>;
-  totalQuestions: number;
   correctAnswer: string;
-  setScore: Dispatch<SetStateAction<IScore[]>>;
+  scores: IScore[];
+  setScores: Dispatch<SetStateAction<IScore[]>>;
 }
 
 export default function Quiz(props: IProps) {
@@ -23,30 +23,42 @@ export default function Quiz(props: IProps) {
     choices,
     currentQuestion,
     setCurrentQuestion,
-    totalQuestions,
     correctAnswer,
-    setScore,
+    scores,
+    setScores,
   } = props; // destructuring of props
 
-  const { dispatch } = useContext(GlobalContext);
+  const {
+    state: { totalQuestions },
+    dispatch,
+  } = useContext(GlobalContext);
 
   const [userSelectedAns, setUserSelectedAns] = useState<string>("");
 
- 
-
   const handleNextQues = () => {
+    setScores((prev) => {
+      // console.log("🚀 ~ file: Quiz.tsx:39 ~ setScore ~ prev:", prev);
+      return [
+        ...prev,
+        {
+          questionNo: currentQuestion + 1,
+          answeredCorrectly: userSelectedAns === correctAnswer,
+        },
+      ];
+    });
+
     if (currentQuestion + 1 === totalQuestions) {
-      console.log("zada hogya");
+      // API can be called here to send Result to DB
+      // console.log("zada hogya");
+      // setScore((prev) => {
+      dispatch({ type: "SET_SCORE", payload: scores });
+      //   return [];
+      // });
       dispatch({ type: "SHOW_PAGE", payload: false });
+
       return;
     }
-    setScore((prev) => [
-      ...prev,
-      {
-        questionNo: currentQuestion + 1,
-        answeredCorrectly: userSelectedAns === correctAnswer,
-      },
-    ]);
+
     setCurrentQuestion(currentQuestion + 1);
     setUserSelectedAns("");
   };

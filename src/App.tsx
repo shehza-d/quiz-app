@@ -1,20 +1,17 @@
-import { useState } from "react";
+import { useContext } from "react";
+import { GlobalContext } from "./context/index";
 import QuizPage from "./pages/QuizPage";
 import Welcome from "./pages/Welcome";
 import ResultPage from "./pages/ResultPage";
-import { useContext } from "react";
-import { GlobalContext } from "./context/index";
 
 export default function App() {
-  const {
-    state: { page },
-  } = useContext(GlobalContext);
+  const { state } = useContext(GlobalContext);
 
   return (
     <main className="min-h-screen">
-      {page === null && <Welcome />}
-      {page === true && <QuizPage />}
-      {page === false && <ResultPage score={43} />}
+      {state.page === null && <Welcome />}
+      {state.page === true && <QuizPage />}
+      {state.page === false && <ResultPage />}
     </main>
   );
 }

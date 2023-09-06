@@ -1,6 +1,8 @@
 import { type ReactNode, createContext, useReducer } from "react";
 import { reducer } from "./reducer";
 
+import questions from "../data/questions.json";
+
 // interface IAction {
 //   type: string;
 //   payload: any;
@@ -9,6 +11,7 @@ import { reducer } from "./reducer";
 const data = {
   testing: "testing context",
   page: null,
+  totalQuestions: questions.length,
 };
 
 export const GlobalContext = createContext<{ state: any; dispatch: any }>({

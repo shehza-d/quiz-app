@@ -5,12 +5,17 @@ import ProgressBar from "../components/ProgressBar";
 import ScoreBar from "../components/ScoreBar";
 import { shuffleArr } from "../lib";
 import { IQuestion, IScore } from "../types";
+import { useContext } from "react";
+import { GlobalContext } from "../context/index";
 
 export default function QuizPage() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [score, setScore] = useState<IScore[]>([]);
+  const {
+    state: { totalQuestions },
+  } = useContext(GlobalContext);
 
-  const totalQuestions = data.length;
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [scores, setScores] = useState<IScore[]>([]);
+
   const percentage = ((currentQuestion + 1) / totalQuestions) * 100;
 
   const question = {
@@ -40,11 +45,11 @@ export default function QuizPage() {
           choices={choices}
           currentQuestion={currentQuestion}
           setCurrentQuestion={setCurrentQuestion}
-          totalQuestions={totalQuestions}
           correctAnswer={question.correct_answer}
-          setScore={setScore}
+          scores={scores}
+          setScores={setScores}
         />
-        <ScoreBar score={score} totalQuestions={totalQuestions} />
+        <ScoreBar scores={scores} />
       </div>
     </>
   );

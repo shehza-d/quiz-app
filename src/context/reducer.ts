@@ -7,6 +7,10 @@ export const reducer = (
       return { ...state, page: action.payload };
     }
 
+    case "SET_SCORE": {
+      return { ...state, totalScore: action.payload }; // array of scores
+    }
+
     default: {
       return state;
     }
