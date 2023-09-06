@@ -1,5 +1,6 @@
-// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+import { IDifficulty } from "../types";
 
+// https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 export const shuffleArr = (array: string[]) => {
   let currentIndex = array.length;
   let randomIndex;
@@ -19,3 +20,6 @@ export const shuffleArr = (array: string[]) => {
 
   return array;
 };
+
+export const getRating = (rating: IDifficulty) =>
+  rating === "easy" ? 1 : rating === "medium" ? 2 : rating === "hard" ? 3 : 0;

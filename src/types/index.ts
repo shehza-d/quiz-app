@@ -1,7 +1,9 @@
+export type IDifficulty = "easy" | "medium" | "hard";
+
 export interface IQuestion {
   category: string;
   type: "multiple" | "boolean";
-  difficulty: "easy" | "medium" | "hard";
+  difficulty: IDifficulty;
   question: string;
   correct_answer: string;
   incorrect_answers: string[];

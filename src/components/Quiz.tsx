@@ -3,6 +3,9 @@ import ReactStars from "react-stars";
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import ChoicesBtn from "./ChoicesBtn";
+import { useContext } from "react";
+import { GlobalContext } from "../context/index";
+import { getRating } from "../lib";
 
 interface IProps {
   question: IQuestion;
@@ -25,18 +28,18 @@ export default function Quiz(props: IProps) {
     setScore,
   } = props; // destructuring of props
 
+  const { dispatch } = useContext(GlobalContext);
+
   const [userSelectedAns, setUserSelectedAns] = useState<string>("");
 
-  const questionRating =
-    question.difficulty === "easy"
-      ? 1
-      : question.difficulty === "medium"
-      ? 2
-      : question.difficulty === "hard"
-      ? 3
-      : 0;
+ 
 
   const handleNextQues = () => {
+    if (currentQuestion + 1 === totalQuestions) {
+      console.log("zada hogya");
+      dispatch({ type: "SHOW_PAGE", payload: false });
+      return;
+    }
     setScore((prev) => [
       ...prev,
       {
@@ -57,7 +60,7 @@ export default function Quiz(props: IProps) {
 
       <ReactStars
         count={5}
-        value={questionRating}
+        value={getRating(question.difficulty)}
         edit={false}
         size={22}
         color1="#e5e5e5"
@@ -85,14 +88,14 @@ export default function Quiz(props: IProps) {
           <div className="text-4xl font-medium text-zinc-800">
             {userSelectedAns === correctAnswer ? "Correct!" : "Sorry!"}
           </div>
-          {currentQuestion + 1 !== totalQuestions && (
+          {
             <button
               className="rounded-md border-2 border-slate-700 px-6 py-1"
               onClick={handleNextQues}
             >
               Next Question
             </button>
-          )}
+          }
         </div>
       )}
     </div>
