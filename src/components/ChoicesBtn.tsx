@@ -27,10 +27,6 @@ export default function ChoicesBtn(props: IProps) {
 
   const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
     if (userSelectedAns) return; // most important line
-    
-
-    console.log("userSelectedAns", userSelectedAns);
-    console.log("correctAnswer", correctAnswer);
 
     // API can be called here to send Result to DB
     setUserSelectedAns(event.currentTarget.innerText);
@@ -48,8 +44,6 @@ export default function ChoicesBtn(props: IProps) {
 
     if (currentQuestion + 1 === totalQuestions) {
       setBtnText("Show result");
-      console.log("zada hogya");
-
       return;
     }
   };

@@ -8,5 +8,3 @@ coverage
 **/.git
 **/.svn
 **/.hg
-
-.vscode/**
