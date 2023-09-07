@@ -6,59 +6,29 @@ import ChoicesBtn from "./ChoicesBtn";
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
 import { getRating } from "../lib";
+import { totalQuestions } from "../data/index";
 
 interface IProps {
   question: IQuestion;
-  choices: string[];
   currentQuestion: number;
   setCurrentQuestion: Dispatch<SetStateAction<number>>;
   correctAnswer: string;
-  scores: IScore[];
-  setScores: Dispatch<SetStateAction<IScore[]>>;
 }
 
 export default function Quiz(props: IProps) {
-  const {
-    question,
-    choices,
-    currentQuestion,
-    setCurrentQuestion,
-    correctAnswer,
-    scores,
-    setScores,
-  } = props; // destructuring of props
+  // destructuring of props
+  const { question, currentQuestion, setCurrentQuestion, correctAnswer } =
+    props;
 
-  const {
-    state: { totalQuestions },
-    dispatch,
-  } = useContext(GlobalContext);
+  const { dispatch } = useContext(GlobalContext);
 
   const [userSelectedAns, setUserSelectedAns] = useState<string>("");
+  const [btnText, setBtnText] = useState<string>("Next Question");
 
   const handleNextQues = () => {
-    setScores((prev) => {
-      // console.log("🚀 ~ file: Quiz.tsx:39 ~ setScore ~ prev:", prev);
-      return [
-        ...prev,
-        {
-          questionNo: currentQuestion + 1,
-          answeredCorrectly: userSelectedAns === correctAnswer,
-        },
-      ];
-    });
-
     if (currentQuestion + 1 === totalQuestions) {
-      // API can be called here to send Result to DB
-      // console.log("zada hogya");
-      // setScore((prev) => {
-      dispatch({ type: "SET_SCORE", payload: scores });
-      //   return [];
-      // });
       dispatch({ type: "SHOW_PAGE", payload: false });
-
-      return;
     }
-
     setCurrentQuestion(currentQuestion + 1);
     setUserSelectedAns("");
   };
@@ -84,13 +54,15 @@ export default function Quiz(props: IProps) {
       </p>
 
       <div className="grid grid-cols-2 items-center justify-items-center gap-8">
-        {choices.map((item, i) => (
+        {question?.choices?.map((item, i) => (
           <ChoicesBtn
             key={i}
             item={item}
+            currentQuestion={currentQuestion}
             correctAnswer={correctAnswer}
             userSelectedAns={userSelectedAns}
             setUserSelectedAns={setUserSelectedAns}
+            setBtnText={setBtnText}
           />
         ))}
       </div>
@@ -102,10 +74,10 @@ export default function Quiz(props: IProps) {
           </div>
           {
             <button
-              className="rounded-md border-2 border-slate-700 px-6 py-1"
+              className="rounded-md border-2 border-slate-700 bg-gray-200 px-6 py-1"
               onClick={handleNextQues}
             >
-              Next Question
+              {btnText}
             </button>
           }
         </div>

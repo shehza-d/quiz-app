@@ -1,24 +1,18 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
 import { evaluateScore } from "../lib";
-import { IScore } from "../types";
-
-interface IProps {
-  scores: IScore[];
-}
+import { totalQuestions } from "../data/index";
 
 // this is the bottom Score Progress Bar
-export default function ScoreBar(props: IProps) {
-  const {
-    state: { totalQuestions },
-  } = useContext(GlobalContext);
+export default function ScoreBar() {
+  const { state } = useContext(GlobalContext);
+  const { scores } = state;
 
-  const { scores } = props; // destructuring of props
   const totalAttemptedQues = scores.length;
 
   const { totalCorrectAns, totalIncorrectAns } = evaluateScore(scores);
 
-  const minPercentage = Math.round((totalIncorrectAns / totalQuestions) * 100);
+  const minPercentage = Math.round((totalCorrectAns / totalQuestions) * 100);
 
   const totalCorrectPer = Math.round(
     (totalCorrectAns / totalAttemptedQues) * 100,
@@ -37,15 +31,15 @@ export default function ScoreBar(props: IProps) {
       </div>
       <div
         style={{ width: `${maxPercentage}%` }}
-        className={`absolute h-full rounded-l bg-blue-300`}
+        className={`absolute h-full rounded-l bg-gray-300`}
       ></div>
       <div
         style={{ width: `${totalCorrectPer || 0}%` }}
-        className="absolute h-full rounded-l bg-blue-500"
+        className="absolute h-full rounded-l bg-gray-500"
       ></div>
       <div
         style={{ width: `${minPercentage}%` }}
-        className={`absolute h-full rounded-l bg-blue-700`}
+        className={`absolute h-full rounded-l bg-black`}
       ></div>
     </div>
   );
