@@ -1,7 +1,6 @@
 import { type ReactNode, createContext, useReducer } from "react";
 import { reducer } from "./reducer";
-
-import questions from "../data/questions.json";
+import { IScore } from "../types";
 
 // interface IAction {
 //   type: string;
@@ -11,7 +10,7 @@ import questions from "../data/questions.json";
 const data = {
   testing: "testing context",
   page: null,
-  totalQuestions: questions.length,
+  scores: [] as IScore[],
 };
 
 export const GlobalContext = createContext<{ state: any; dispatch: any }>({

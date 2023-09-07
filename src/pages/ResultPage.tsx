@@ -1,11 +1,13 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
 import { evaluateScore } from "../lib";
+import { totalQuestions } from "../data";
 
 export default function ResultPage() {
   const { state, dispatch } = useContext(GlobalContext);
-  const { totalScore, totalQuestions } = state;
-  const { totalCorrectAns } = evaluateScore(totalScore);
+  const { scores } = state;
+
+  const { totalCorrectAns } = evaluateScore(scores);
 
   const totalCorrectPer = Math.round((totalCorrectAns / totalQuestions) * 100);
 
@@ -22,7 +24,7 @@ export default function ResultPage() {
         Result Page
       </h1>
 
-      <div className="text-2xl my-10">
+      <div className="my-10 text-2xl">
         <p>
           You answered {totalCorrectAns} out of {totalQuestions} questions
           correctly!

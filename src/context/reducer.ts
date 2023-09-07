@@ -8,7 +8,7 @@ export const reducer = (
     }
 
     case "SET_SCORE": {
-      return { ...state, totalScore: action.payload }; // array of scores
+      return { ...state, scores: action.payload }; // array of scores
     }
 
     default: {
