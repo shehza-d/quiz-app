@@ -50,7 +50,7 @@ export default function ChoicesBtn(props: IProps) {
   return (
     <button
       onClick={checkAns}
-      className={`w-full max-w-[18rem] rounded-md border-2  border-slate-700 px-2 py-1 font-medium ${
+      className={`w-full max-w-[18rem] rounded-md border-2 border-slate-700 px-2 py-1 font-medium ${
         userSelectedAns
           ? item === correctAnswer
             ? "bg-black text-white"

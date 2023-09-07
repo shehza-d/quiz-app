@@ -1,5 +1,4 @@
-import type { IQuestion, IScore } from "../types";
-import ReactStars from "react-stars";
+import type { IQuestion } from "../types";
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import ChoicesBtn from "./ChoicesBtn";
@@ -7,6 +6,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../context/index";
 import { getRating } from "../lib";
 import { totalQuestions } from "../data/index";
+import Stars from "./Stars";
 
 interface IProps {
   question: IQuestion;
@@ -40,14 +40,7 @@ export default function Quiz(props: IProps) {
       </h2>
       <h4 className="pt-2 text-zinc-500">{question.category}</h4>
 
-      <ReactStars
-        count={5}
-        value={getRating(question.difficulty)}
-        edit={false}
-        size={22}
-        color1="#e5e5e5"
-        color2={"black"}
-      />
+      <Stars filled={getRating(question.difficulty)} />
 
       <p className="flex min-h-[6rem] items-center text-lg font-medium">
         {question.question}
