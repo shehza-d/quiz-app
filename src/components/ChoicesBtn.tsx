@@ -6,8 +6,8 @@ import { totalQuestions } from "../data/index";
 interface IProps {
   item: string;
   correctAnswer: string;
-  userSelectedAns: string;
-  setUserSelectedAns: Dispatch<SetStateAction<string>>;
+  userSelectedAnswer: string;
+  setUserSelectedAnswer: Dispatch<SetStateAction<string>>;
   currentQuestion: number;
   setBtnText: Dispatch<SetStateAction<string>>;
 }
@@ -16,8 +16,8 @@ export default function ChoicesBtn(props: IProps) {
   const {
     item,
     correctAnswer,
-    userSelectedAns,
-    setUserSelectedAns,
+    userSelectedAnswer,
+    setUserSelectedAnswer,
     currentQuestion,
     setBtnText,
   } = props; // destructuring of props
@@ -26,10 +26,10 @@ export default function ChoicesBtn(props: IProps) {
   const { scores } = state;
 
   const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
-    if (userSelectedAns) return; // most important line
+    if (userSelectedAnswer) return; // most important line
 
     // API can be called here to send Result to DB
-    setUserSelectedAns(event.currentTarget.innerText);
+    setUserSelectedAnswer(event.currentTarget.innerText);
 
     dispatch({
       type: "SET_SCORE",
@@ -51,7 +51,7 @@ export default function ChoicesBtn(props: IProps) {
     <button
       onClick={checkAns}
       className={`w-full max-w-[18rem] rounded-md border-2 border-slate-700 px-2 py-1 font-medium ${
-        userSelectedAns
+        userSelectedAnswer
           ? item === correctAnswer
             ? "bg-black text-white"
             : "opacity-50"

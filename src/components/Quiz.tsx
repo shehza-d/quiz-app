@@ -25,17 +25,17 @@ export default function Quiz(props: IProps) {
 
   const navigate = useNavigate();
 
-  const [userSelectedAns, setUserSelectedAns] = useState<string>("");
+  const [userSelectedAnswer, setUserSelectedAnswer] = useState<string>("");
   const [btnText, setBtnText] = useState<string>("Next Question");
 
-  const handleNextQues = () => {
+  const handleNextQuestion = () => {
     if (currentQuestion + 1 === totalQuestions) {
       navigate("/result");
 
       // dispatch({ type: "SHOW_PAGE", payload: false });
     }
     setCurrentQuestion(currentQuestion + 1);
-    setUserSelectedAns("");
+    setUserSelectedAnswer("");
   };
 
   return (
@@ -58,22 +58,22 @@ export default function Quiz(props: IProps) {
             item={item}
             currentQuestion={currentQuestion}
             correctAnswer={correctAnswer}
-            userSelectedAns={userSelectedAns}
-            setUserSelectedAns={setUserSelectedAns}
+            userSelectedAnswer={userSelectedAnswer}
+            setUserSelectedAnswer={setUserSelectedAnswer}
             setBtnText={setBtnText}
           />
         ))}
       </div>
 
-      {userSelectedAns && (
+      {userSelectedAnswer && (
         <div className="mt-10 flex w-full flex-col items-center gap-6">
           <div className="text-4xl font-medium text-zinc-800">
-            {userSelectedAns === correctAnswer ? "Correct!" : "Sorry!"}
+            {userSelectedAnswer === correctAnswer ? "Correct!" : "Sorry!"}
           </div>
           {
             <button
               className="rounded-md border-2 border-slate-700 bg-gray-200 px-6 py-1"
-              onClick={handleNextQues}
+              onClick={handleNextQuestion}
             >
               {btnText}
             </button>
