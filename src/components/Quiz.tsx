@@ -18,8 +18,12 @@ interface IProps {
 
 export default function Quiz(props: IProps) {
   // destructuring of props
-  const { question, currentQuestion, setCurrentQuestion, correctAnswer } =
-    props;
+  const {
+    question: { question, category, difficulty, choices },
+    currentQuestion,
+    setCurrentQuestion,
+    correctAnswer,
+  } = props;
 
   const { dispatch } = useContext(GlobalContext);
 
@@ -43,16 +47,16 @@ export default function Quiz(props: IProps) {
       <h2 className="text-2xl text-zinc-600 md:text-4xl">
         Question {currentQuestion + 1} of {totalQuestions}
       </h2>
-      <h4 className="pt-2 text-zinc-500">{question.category}</h4>
+      <h4 className="pt-2 text-zinc-500">{category}</h4>
 
-      <Stars filled={getRating(question.difficulty)} />
+      <Stars filled={getRating(difficulty)} />
 
       <p className="flex min-h-[6rem] items-center text-lg font-medium">
-        {question.question}
+        {question}
       </p>
 
       <div className="grid grid-cols-2 items-center justify-items-center gap-8">
-        {question?.choices?.map((item, i) => (
+        {choices?.map((item, i) => (
           <ChoicesBtn
             key={i}
             item={item}
