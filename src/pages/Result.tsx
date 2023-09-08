@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
-import { evaluateScore } from "../helpers";
+import { evaluateScore, getPercentage } from "../helpers";
 import { totalQuestions } from "../data";
 import { useNavigate } from "react-router-dom";
 
@@ -11,9 +11,9 @@ export default function ResultPage() {
 
   const navigate = useNavigate();
 
-  const { totalCorrectAns } = evaluateScore(scores);
+  const { totalCorrectAnswer } = evaluateScore(scores);
 
-  const totalCorrectPer = Math.round((totalCorrectAns / totalQuestions) * 100);
+  const percentage = getPercentage(totalCorrectAnswer);
 
   return (
     <div className="mx-auto mt-10 flex h-[70vh] w-4/5 flex-col items-center justify-center">
@@ -32,10 +32,10 @@ export default function ResultPage() {
         {scores.length ? (
           <>
             <p>
-              You answered {totalCorrectAns} out of {totalQuestions} questions
+              You answered {totalCorrectAnswer} out of {totalQuestions} questions
               correctly!
             </p>
-            <p>Total Percentage was {totalCorrectPer}%</p>
+            <p>Total Percentage was {percentage}%</p>
           </>
         ) : (
           <p>Give Quiz first to Check Results</p>

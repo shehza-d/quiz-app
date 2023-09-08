@@ -25,7 +25,7 @@ export default function ChoicesBtn(props: IProps) {
   const { state, dispatch } = useContext(GlobalContext);
   const { scores } = state;
 
-  const checkAns = (event: MouseEvent<HTMLButtonElement>) => {
+  const checkAnswer = (event: MouseEvent<HTMLButtonElement>) => {
     if (userSelectedAnswer) return; // most important line
 
     // API can be called here to send Result to DB
@@ -49,7 +49,7 @@ export default function ChoicesBtn(props: IProps) {
   };
   return (
     <button
-      onClick={checkAns}
+      onClick={checkAnswer}
       className={`w-full max-w-[18rem] rounded-md border-2 border-slate-700 px-2 py-1 font-medium ${
         userSelectedAnswer
           ? item === correctAnswer

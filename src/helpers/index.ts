@@ -1,4 +1,5 @@
 import { IDifficulty, IScore } from "../types";
+import { totalQuestions } from "../data";
 
 // https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 export const shuffleArr = (array: string[]) => {
@@ -22,16 +23,26 @@ export const shuffleArr = (array: string[]) => {
 };
 
 export const evaluateScore = (score: IScore[]) => {
-  let totalCorrectAns = 0;
-  let totalIncorrectAns = 0;
+  let totalCorrectAnswer = 0;
+  let totalIncorrectAnswer = 0;
 
   score.forEach((item) => {
-    totalCorrectAns += item.answeredCorrectly ? 1 : 0;
-    totalIncorrectAns += !item.answeredCorrectly ? 1 : 0;
+    totalCorrectAnswer += item.answeredCorrectly ? 1 : 0;
+    totalIncorrectAnswer += !item.answeredCorrectly ? 1 : 0;
   });
 
-  return { totalCorrectAns, totalIncorrectAns };
+  return { totalCorrectAnswer, totalIncorrectAnswer };
 };
 
 export const getRating = (rating: IDifficulty) =>
   rating === "easy" ? 1 : rating === "medium" ? 2 : rating === "hard" ? 3 : 0;
+
+// optional params of totalQuestions because if in most cases totalQuestions
+// is being used for calculation but in 1 case total was totalAttemptedQuestions(state)
+export const getPercentage = (
+  obtained: number,
+  total: number = totalQuestions,
+) => {
+  const result = Math.round((obtained / total) * 100);
+  return result || 0;
+};
