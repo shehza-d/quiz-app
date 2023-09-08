@@ -36,13 +36,13 @@ export default function ChoicesBtn(props: IProps) {
       payload: [
         ...scores,
         {
-          questionNo: currentQuestion + 1,
+          questionNo: currentQuestion,
           answeredCorrectly: event.currentTarget.innerText === correctAnswer,
         },
       ],
     });
 
-    if (currentQuestion + 1 === totalQuestions) {
+    if (currentQuestion === totalQuestions) {
       setBtnText("Show result");
       return;
     }

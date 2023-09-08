@@ -33,11 +33,12 @@ export default function Quiz(props: IProps) {
   const [btnText, setBtnText] = useState<string>("Next Question");
 
   const handleNextQuestion = () => {
-    if (currentQuestion + 1 === totalQuestions) {
+    if (currentQuestion === totalQuestions) {
       navigate("/result");
 
       // dispatch({ type: "SHOW_PAGE", payload: false });
     }
+    // currentQuestion + 1 will change screen to next question
     setCurrentQuestion(currentQuestion + 1);
     setUserSelectedAnswer("");
   };
@@ -45,7 +46,7 @@ export default function Quiz(props: IProps) {
   return (
     <div className="">
       <h2 className="text-2xl text-zinc-600 md:text-4xl">
-        Question {currentQuestion + 1} of {totalQuestions}
+        Question {currentQuestion} of {totalQuestions}
       </h2>
       <h4 className="pt-2 text-zinc-500">{category}</h4>
 

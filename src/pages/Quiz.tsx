@@ -5,11 +5,12 @@ import ProgressBar from "../components/ProgressBar";
 import ScoreBar from "../components/ScoreBar";
 
 export default function QuizPage() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
 
-  const percentage = ((currentQuestion + 1) / totalQuestions) * 100;
+  const index = currentQuestion - 1;
+  const question = questionsData[index];
 
-  const question = questionsData[currentQuestion];
+  const percentage = (currentQuestion / totalQuestions) * 100;
 
   return (
     <>
