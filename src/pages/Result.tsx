@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
-import { evaluateScore } from "../lib";
+import { evaluateScore } from "../helpers";
 import { totalQuestions } from "../data";
 import { useNavigate } from "react-router-dom";
 

@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from "react";
 import ChoicesBtn from "./ChoicesBtn";
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
-import { getRating } from "../lib";
+import { getRating } from "../helpers";
 import { totalQuestions } from "../data/index";
 import Stars from "./Stars";
 import { useNavigate } from "react-router-dom";

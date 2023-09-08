@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
-import { evaluateScore } from "../lib";
+import { evaluateScore } from "../helpers";
 import { totalQuestions } from "../data/index";
 
 // this is the bottom Score Progress Bar
