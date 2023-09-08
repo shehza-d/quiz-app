@@ -1,24 +1,9 @@
-import { useContext } from "react";
-import { GlobalContext } from "../context/index";
-import { evaluateScore, getPercentage } from "../helpers";
-import { totalQuestions } from "../data";
+import useScoreBarPercentage from "../hooks/useScoreBarPercentage";
 
 // this is the bottom Score Progress Bar
 export default function ScoreBar() {
-  const { state } = useContext(GlobalContext);
-  const { scores } = state;
-
-  const totalAttemptedQuestions = scores.length;
-
-  const { totalCorrectAnswer, totalIncorrectAnswer } = evaluateScore(scores);
-
-  const max = totalQuestions - totalIncorrectAnswer;
-  const maxPercentage = getPercentage(max);
-  const minPercentage = getPercentage(totalCorrectAnswer);
-  const totalCorrectPercentageUpTillNow = getPercentage(
-    totalCorrectAnswer,
-    totalAttemptedQuestions,
-  );
+  const { minPercentage, totalCorrectPercentageUpTillNow, maxPercentage } =
+    useScoreBarPercentage();
 
   return (
     <div className="relative h-9 w-full rounded-md border-2 border-zinc-600">
