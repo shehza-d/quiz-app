@@ -37,12 +37,12 @@ export const evaluateScore = (score: IScore[]) => {
 export const getRating = (rating: IDifficulty) =>
   rating === "easy" ? 1 : rating === "medium" ? 2 : rating === "hard" ? 3 : 0;
 
-// optional params of totalQuestions because if in most cases totalQuestions
-// is being used for calculation but in 1 case total was totalAttemptedQuestions(state)
+// In most cases totalQuestions is being used for calculation but in 1 case total
+// was totalAttemptedQuestions(state) so i added optional params of totalQuestions
 export const getPercentage = (
   obtained: number,
   total: number = totalQuestions,
 ) => {
   const result = Math.round((obtained / total) * 100);
-  return result || 0;
+  return result || 0; // 0 to avoid NaN at first question
 };

@@ -9,7 +9,6 @@ import { IScore } from "../types";
 
 const data = {
   testing: "testing context",
-  page: null,
   scores: [] as IScore[],
 };
 

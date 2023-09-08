@@ -2,8 +2,6 @@ import type { IQuestion } from "../types";
 import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import ChoicesBtn from "./ChoicesBtn";
-import { useContext } from "react";
-import { GlobalContext } from "../context/index";
 import { getRating } from "../helpers";
 import { totalQuestions } from "../data/index";
 import Stars from "./Stars";
@@ -25,19 +23,13 @@ export default function Quiz(props: IProps) {
     correctAnswer,
   } = props;
 
-  const { dispatch } = useContext(GlobalContext);
-
   const navigate = useNavigate();
 
   const [userSelectedAnswer, setUserSelectedAnswer] = useState<string>("");
   const [btnText, setBtnText] = useState<string>("Next Question");
 
   const handleNextQuestion = () => {
-    if (currentQuestion === totalQuestions) {
-      navigate("/result");
-
-      // dispatch({ type: "SHOW_PAGE", payload: false });
-    }
+    if (currentQuestion === totalQuestions) navigate("/result");
     // currentQuestion + 1 will change screen to next question
     setCurrentQuestion(currentQuestion + 1);
     setUserSelectedAnswer("");

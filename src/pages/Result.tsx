@@ -4,10 +4,9 @@ import { evaluateScore, getPercentage } from "../helpers";
 import { totalQuestions } from "../data";
 import { useNavigate } from "react-router-dom";
 
-export default function ResultPage() {
-  const { state, dispatch } = useContext(GlobalContext);
+export default function Result() {
+  const { state } = useContext(GlobalContext);
   const { scores } = state;
-  console.log("🚀 ~ file: Result.tsx:10 ~ ResultPage ~ scores:", scores);
 
   const navigate = useNavigate();
 
