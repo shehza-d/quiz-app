@@ -4,7 +4,7 @@ import type { Dispatch, SetStateAction } from "react";
 import ChoicesBtn from "./ChoicesBtn";
 import { getRating } from "../helpers";
 import { totalQuestions } from "../data/index";
-import Stars from "./Stars";
+import Stars from "./ui/Stars";
 import { useNavigate } from "react-router-dom";
 
 interface IProps {

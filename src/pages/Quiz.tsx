@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { questionsData, totalQuestions } from "../data/index";
 import Quiz from "../components/Quiz";
-import ProgressBar from "../components/ProgressBar";
+import ProgressBar from "../components/ui/ProgressBar";
 import ScoreBar from "../components/ScoreBar";
 
 export default function QuizPage() {
