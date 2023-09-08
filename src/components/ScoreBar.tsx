@@ -29,15 +29,15 @@ export default function ScoreBar() {
       </div>
       <div
         style={{ width: `${maxPercentage}%` }}
-        className={`absolute h-full rounded-l bg-gray-300`}
+        className={`absolute h-full rounded-l bg-gray-300 transition-all duration-700`}
       ></div>
       <div
         style={{ width: `${totalCorrectPercentageUpTillNow}%` }}
-        className="absolute h-full rounded-l bg-gray-500"
+        className="absolute h-full rounded-l bg-gray-500 transition-all duration-700"
       ></div>
       <div
         style={{ width: `${minPercentage}%` }}
-        className={`absolute h-full rounded-l bg-black`}
+        className={`absolute h-full rounded-l bg-black transition-all duration-700`}
       ></div>
     </div>
   );
