@@ -1,4 +1,4 @@
-import useScoreBarPercentage from "../hooks/useScoreBarPercentage";
+import useScoreBarPercentage from "../../hooks/useScoreBarPercentage";
 
 // this is the bottom Score Progress Bar
 export default function ScoreBar() {

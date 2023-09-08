@@ -2,7 +2,7 @@ import { useState } from "react";
 import { questionsData, totalQuestions } from "../data/index";
 import Quiz from "../components/Quiz";
 import ProgressBar from "../components/ui/ProgressBar";
-import ScoreBar from "../components/ScoreBar";
+import ScoreBar from "../components/ui/ScoreBar";
 
 export default function QuizPage() {
   const [currentQuestion, setCurrentQuestion] = useState(1);
