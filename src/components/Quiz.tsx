@@ -7,6 +7,7 @@ import { GlobalContext } from "../context/index";
 import { getRating } from "../lib";
 import { totalQuestions } from "../data/index";
 import Stars from "./Stars";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {
   question: IQuestion;
@@ -22,12 +23,16 @@ export default function Quiz(props: IProps) {
 
   const { dispatch } = useContext(GlobalContext);
 
+  const navigate = useNavigate();
+
   const [userSelectedAns, setUserSelectedAns] = useState<string>("");
   const [btnText, setBtnText] = useState<string>("Next Question");
 
   const handleNextQues = () => {
     if (currentQuestion + 1 === totalQuestions) {
-      dispatch({ type: "SHOW_PAGE", payload: false });
+      navigate("/result");
+
+      // dispatch({ type: "SHOW_PAGE", payload: false });
     }
     setCurrentQuestion(currentQuestion + 1);
     setUserSelectedAns("");

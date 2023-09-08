@@ -1,8 +1,12 @@
 import { useContext } from "react";
 import { GlobalContext } from "../context/index";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Welcome() {
-  const { dispatch } = useContext(GlobalContext);
+  // const { dispatch } = useContext(GlobalContext);
+  const navigate = useNavigate();
 
   return (
     <div className="mx-auto mt-10 flex h-[80vh] w-4/5 flex-col items-center justify-center">
@@ -16,12 +20,13 @@ export default function Welcome() {
       <h1 className="mb-10 break-words text-center text-4xl font-bold lg:text-5xl">
         Welcome to Expertizo Quiz
       </h1>
-      <button
+      <Link
+        to="/quiz"
         className="rounded-md px-6 py-2 ring-2 ring-blue-400 duration-300 hover:bg-blue-300 hover:transition-transform"
-        onClick={() => dispatch({ type: "SHOW_PAGE", payload: true })}
+        // onClick={() => dispatch({ type: "SHOW_PAGE", payload: true })}
       >
         Start Quiz
-      </button>
+      </Link>
     </div>
   );
 }

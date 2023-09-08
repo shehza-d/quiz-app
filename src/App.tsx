@@ -1,9 +1,9 @@
-import ShowPages from "./pages/ShowPage";
+import AppRouter from "./routes/AppRouter";
 
 export default function App() {
   return (
-    <main className="min-h-screen">
-      <ShowPages />
+    <main className="">
+      <AppRouter />
     </main>
   );
 }
