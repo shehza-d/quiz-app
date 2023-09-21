@@ -2,6 +2,15 @@
 
 ![Expertizo](./public/Expertizo-logo.png)
 
+readme left
+color-shadow-font-title left
+
+solution of 404 page not found while deploying with react router dom
+
+```bash
+npm run build && cd build && cp index.html 200.html && surge
+```
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
