@@ -2,6 +2,8 @@
 
 ![Expertizo](./public/Expertizo-logo.png)
 
+![Expertizo](./preview.png)
+
 readme left
 color-shadow-font-title left
 
